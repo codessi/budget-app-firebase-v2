@@ -16,10 +16,11 @@ function App() {
 {authIsReady && (
         <Router>
           <Nav />
-         
+      
           <Switch>
             <Route exact path="/">
-               <Home />
+              {!user && <Redirect to='/login'/>}
+              {user && <Home />}
             </Route>
 
             <Route path="/login">
