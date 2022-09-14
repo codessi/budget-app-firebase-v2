@@ -1,12 +1,11 @@
 import { useState } from "react";
-import AddBudgetModal from "./../components/firebase/AddBudgetModal";
-import AddExpenseModal from "./../components/firebase/AddExpenseModal";
-import BudgetCard from "./../components/firebase/BudgetCard";
-import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./../contexts/BudgetsContext";
-import UncategorizedBudgetCard from "./../components/firebase/UncategorizedBudgetCard";
-import TotalBudgetCard from "./../components/firebase/TotalBudgetCard";
-import ViewExpensesModal from "./../components/firebase/ViewExpensesModal";
-import useAuthContext from "../hooks/useAuthContext";
+import AddBudgetModal from "../components/AddBudgetModal";
+import AddExpenseModal from "../components/AddExpenseModal";
+import BudgetCard from "../components/BudgetCard";
+import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "../contexts/BudgetsContext";
+import UncategorizedBudgetCard from "../components/UncategorizedBudgetCard";
+import TotalBudgetCard from "../components/TotalBudgetCard";
+import ViewExpensesModal from "../components/ViewExpensesModal";
 
 function App() {
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
@@ -28,9 +27,6 @@ function App() {
 
   const { budgets, getBudgetExpenses } = useBudgets();
 
-  const { user } = useAuthContext();
-
-
   const amount = (budgetId) => {
     const expenseObjArr = getBudgetExpenses(budgetId);
     const result = expenseObjArr.reduce((total, expense) => {
@@ -45,9 +41,9 @@ function App() {
       <div className="p-4 md:p-8   min-h-screen bg-slate-300">
         <div className="border-8 md:border-4 md:pb-6   bg-gray-100 max-w-sm md:max-w-4xl mx-auto min-h-screen md:min-h-[70vh]  rounded-[3.3rem] md:rounded-[2rem]  border-white overflow-hidden" >
           <div direction="horizontal" className="flex-col  p-5 pt-10 pb-6 justify-between text-white bg-teal-600/90 mb-4">
-          <div className="flex justify-between items-center">
+            <div className="flex justify-between">
               <h1 className="text-3xl mb-3  font-semibold">Budget App</h1>
-              <p className="mr-7 bg-teal-500 px-4 rounded">{user.displayName}'s Budget</p>
+              <p className="mr-7 bg-teal-500 p-2 rounded">This is a demo. <br/> Login to see your budget. : )</p>
             </div>
             <div className="flex gap-2">
               <button className="outline outline-teal-300/90 text-white p-1 px-3 rounded-lg hover:outline-white transtion duration-200" onClick={() => setShowAddBudgetModal(true)}>

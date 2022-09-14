@@ -4,8 +4,10 @@ import React from "react";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import HomeDemo from "./pages/HomeDemo"
 import Nav from "./components/Nav";
 import useAuthContext from "./hooks/useAuthContext";
+
 
 
 
@@ -16,12 +18,11 @@ function App() {
 {authIsReady && (
         <Router>
           <Nav />
-         
           <Switch>
             <Route exact path="/">
-               <Home />
+            {!user && <HomeDemo />}
+              {user && <Home />}
             </Route>
-
             <Route path="/login">
               {user && <Redirect to='/'/>}
               {!user && <Login />}
