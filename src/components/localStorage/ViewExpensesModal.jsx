@@ -1,8 +1,8 @@
 import {
   UNCATEGORIZED_BUDGET_ID,
   useBudgets,
-} from "../contexts/BudgetsContext";
-import { currencyFormatter } from "./../utils";
+} from "../../contexts/BudgetsContext";
+import { currencyFormatter } from "../../utils";
 
 export default function ViewExpensesModal({ show, handleClose, budgetId }) {
   const { getBudgetExpenses, expenses, deleteBudget, deleteExpense, budgets } =

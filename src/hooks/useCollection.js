@@ -13,10 +13,10 @@ export function useCollection(collection, _query, _orderBy) {
     if (query) {
       ref = ref.where(...query);
     }
-      if (orderBy) {
-        ref = ref.orderBy(...orderBy);
-      }
-    // console.log("from useCollection ", typeof query)
+    if (orderBy) {
+      ref = ref.orderBy(...orderBy);
+    }
+
 
     const unsub = ref.onSnapshot(
       (snapshot) => {
@@ -24,12 +24,12 @@ export function useCollection(collection, _query, _orderBy) {
         snapshot.docs.forEach((doc) => {
           result.push({ ...doc.data(), id: doc.id });
         });
-
+      
         setDocuments(result);
         setError(null);
       },
       (error) => {
-        // console.log(error);
+        console.log(error);
         setError("could not fetch the data");
       }
     );
@@ -39,5 +39,5 @@ export function useCollection(collection, _query, _orderBy) {
     };
   }, [collection, query]);
 
-  return { documents, error };
+  return [documents, error ];
 }

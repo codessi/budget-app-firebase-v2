@@ -1,25 +1,29 @@
 import { useRef } from "react";
 import { useBudgets } from "../../contexts/BudgetsContext";
+import useFireStore from '../../hooks/useFireStore'
+import useAuthContext from "../../hooks/useAuthContext";
+
 export default function AddBudgetModal({ show, handleClose }) {
+
   const nameRef = useRef();
   const maxRef = useRef();
-  const { addBudget } = useBudgets();
+  // const { addBudget } = useBudgets();
+  const { addDocument, response } = useFireStore('budget')
+  const { user } = useAuthContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addBudget({
+    addDocument({
       name: nameRef.current.value,
       max: parseFloat(maxRef.current.value),
+      uid: user.uid
     });
     handleClose();
   };
 
   return (
     <div className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${show ? "" : "hidden"}  `}>
-      <div
-        className="bg-white rounded-lg  p-5 w-96"
-
-      >
+      <div className="bg-white rounded-lg  p-5 w-96" >
         <form onSubmit={handleSubmit}>
           <div className="flex justify-between mb-4">
             <h3 className="text-xl font-">Add Budget</h3>
@@ -37,7 +41,7 @@ export default function AddBudgetModal({ show, handleClose }) {
           </div>
           <hr className="border-1 border-gray-500/40 -mx-5" />
           <div>
-            <div className="my-4" controlId="name">
+            <div className="my-4" >
               <label className="space-y-1">
                 <h3>Name</h3>
                 <input
@@ -50,7 +54,7 @@ export default function AddBudgetModal({ show, handleClose }) {
               </label>
             </div>
 
-            <div className="mb-3" controlId="max">
+            <div className="mb-3" >
               <label className="space-y-1">
                 <h3>Maximum Spending</h3>
                 <input

@@ -77,7 +77,7 @@ export default function useFireStore(collection) {
       dispatcheIfNotCanceled({
         type: "DELETED_DOCUMENT",
       });
-      console.log(response)
+      
     } catch (error) {
       dispatcheIfNotCanceled({
         type: "ERROR",

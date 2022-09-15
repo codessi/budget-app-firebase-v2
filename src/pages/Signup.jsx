@@ -14,7 +14,6 @@ const Signup = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(email, password, userName)
     signup(email, password, userName)
   }
 

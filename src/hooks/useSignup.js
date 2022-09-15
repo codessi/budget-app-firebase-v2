@@ -15,7 +15,6 @@ export function useSignup() {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
 
-      console.log(res.user);
 
       if (!res) {
         throw new Error("Could not complete signup");

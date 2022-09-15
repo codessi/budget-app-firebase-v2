@@ -1,5 +1,5 @@
 import React from 'react'
-import { useBudgets } from '../contexts/BudgetsContext'
+import { useBudgets } from '../../contexts/BudgetsContext'
 import BudgetCard from './BudgetCard'
 
 // -- I want total bugetCard to have
@@ -14,7 +14,7 @@ export default function TotalBudgetCard({onViewExpensesClick}) {
 
   const tExpense = expenses.reduce((total, expense) => { return total + parseFloat(expense?.amount) }, 0)
 
-  console.log("from total card" , expenses)
+  
   
   return (
     <BudgetCard name = "Total Budget" max={max} amount={tExpense} noButton onViewExpensesClick={onViewExpensesClick}/>

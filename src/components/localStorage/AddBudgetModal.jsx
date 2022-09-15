@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useBudgets } from "../contexts/BudgetsContext";
+import { useBudgets } from "../../contexts/BudgetsContext";
 export default function AddBudgetModal({ show, handleClose }) {
   const nameRef = useRef();
   const maxRef = useRef();
@@ -37,7 +37,7 @@ export default function AddBudgetModal({ show, handleClose }) {
           </div>
           <hr className="border-1 border-gray-500/40 -mx-5" />
           <div>
-            <div className="my-4" controlId="name">
+            <div className="my-4" >
               <label className="space-y-1">
                 <h3>Name</h3>
                 <input
@@ -50,7 +50,7 @@ export default function AddBudgetModal({ show, handleClose }) {
               </label>
             </div>
 
-            <div className="mb-3" controlId="max">
+            <div className="mb-3" >
               <label className="space-y-1">
                 <h3>Maximum Spending</h3>
                 <input

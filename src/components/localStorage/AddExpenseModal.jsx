@@ -2,7 +2,7 @@ import { useRef } from "react";
 import {
   UNCATEGORIZED_BUDGET_ID,
   useBudgets,
-} from "../contexts/BudgetsContext";
+} from "../../contexts/BudgetsContext";
 export default function AddExpenseModal({
   show,
   handleClose,
@@ -25,7 +25,7 @@ export default function AddExpenseModal({
     handleClose();
   };
 
-  // console.log("fromExpensModal  ",budgetIdRef?.current?.value)
+
 
   return (
     <div className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${show ? "" : "hidden"}  `}>
@@ -49,7 +49,7 @@ export default function AddExpenseModal({
           </div>
           <hr className="border-1 border-gray-500/40 -mx-5" />
           <div>
-            <div className="my-4" controlId="description">
+            <div className="my-4" >
               <label className="space-y-1">
                 <h3>Description</h3>
                 <input
@@ -61,7 +61,7 @@ export default function AddExpenseModal({
                 />
               </label>
             </div>
-            <div className="mb-3" controlId="amount">
+            <div className="mb-3" >
               <label className="space-y-1">
                 <h3>Amount</h3>
                 <input
@@ -76,7 +76,7 @@ export default function AddExpenseModal({
               </label>
             </div>
 
-            <div className="mb-3" controlId="max">
+            <div className="mb-3">
               <label className="space-y-1">
                 <h3>Budget</h3>
                 <select  className="w-full p-1 outline outline-slate-200 rounded text-slate-400"

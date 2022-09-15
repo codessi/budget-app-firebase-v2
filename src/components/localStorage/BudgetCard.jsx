@@ -1,5 +1,5 @@
 import React from "react";
-import { currencyFormatter } from "../utils";
+import { currencyFormatter } from "../../utils";
 
 export default function BudgetCard({
   name,
@@ -44,9 +44,9 @@ export default function BudgetCard({
  
 
         {max ? (
-         <div class="w-full bg-gray-500 rounded-full h-2.5 my-5 dark:bg-gray-700">
+         <div className="w-full bg-gray-500 rounded-full h-2.5 my-5 dark:bg-gray-700">
             <div
-              class={`bg-${getProgressBarVarient(amount,max)}-400 h-2.5 rounded-full`}
+              className={`bg-${getProgressBarVarient(amount,max)}-400 h-2.5 rounded-full`}
               style={{ width: `${(amount/max)*100}%` }}
             ></div>
           </div>

@@ -3,12 +3,18 @@ import {
   UNCATEGORIZED_BUDGET_ID,
   useBudgets,
 } from "../../contexts/BudgetsContext";
+import useFireStore from "../../hooks/useFireStore";
+import useAuthContext from "../../hooks/useAuthContext";
+
 export default function AddExpenseModal({
   show,
   handleClose,
   defaultBudgetId,
+  budgets
 }) {
-  const { addExpense, budgets } = useBudgets();
+  // const { addExpense, budgets } = useBudgets();
+  const { addDocument, response } = useFireStore("expense");
+  const { user } = useAuthContext();
 
   const amountRef = useRef();
   const descriptionRef = useRef();
@@ -16,22 +22,25 @@ export default function AddExpenseModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addExpense({
+    addDocument({
       description: descriptionRef.current.value,
       amount: amountRef.current.value,
       budgetId: budgetIdRef.current.value,
+      uid: user.uid
     });
 
     handleClose();
   };
 
-  // console.log("fromExpensModal  ",budgetIdRef?.current?.value)
+
 
   return (
-    <div className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${show ? "" : "hidden"}  `}>
-      <div
-        className="bg-white rounded-lg  p-5 w-96"
-      >
+    <div
+      className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${
+        show ? "" : "hidden"
+      }  `}
+    >
+      <div className="bg-white rounded-lg  p-5 w-96">
         <form onSubmit={handleSubmit}>
           <div className="flex justify-between mb-4">
             <h3 className="text-xl font-">New Expense</h3>
@@ -49,7 +58,7 @@ export default function AddExpenseModal({
           </div>
           <hr className="border-1 border-gray-500/40 -mx-5" />
           <div>
-            <div className="my-4" controlId="description">
+            <div className="my-4">
               <label className="space-y-1">
                 <h3>Description</h3>
                 <input
@@ -61,7 +70,7 @@ export default function AddExpenseModal({
                 />
               </label>
             </div>
-            <div className="mb-3" controlId="amount">
+            <div className="mb-3">
               <label className="space-y-1">
                 <h3>Amount</h3>
                 <input
@@ -76,17 +85,18 @@ export default function AddExpenseModal({
               </label>
             </div>
 
-            <div className="mb-3" controlId="max">
+            <div className="mb-3">
               <label className="space-y-1">
                 <h3>Budget</h3>
-                <select  className="w-full p-1 outline outline-slate-200 rounded text-slate-400"
+                <select
+                  className="w-full p-1 outline outline-slate-200 rounded text-slate-400"
                   ref={budgetIdRef}
                   defaultValue={defaultBudgetId}
                   aria-label="Default blah example"
                 >
-                  <option  id={UNCATEGORIZED_BUDGET_ID}>uncategorized </option>
-                  {budgets.map((budget) => (
-                    <option  key={budget.budgetId} value={budget.budgetId}>
+                  <option id={UNCATEGORIZED_BUDGET_ID}>uncategorized </option>
+                  {budgets && budgets.map((budget) => (
+                    <option key={budget.id} value={budget.id}>
                       {budget.name}
                     </option>
                   ))}

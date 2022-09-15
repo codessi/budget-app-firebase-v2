@@ -3,19 +3,30 @@ import {
   useBudgets,
 } from "./../../contexts/BudgetsContext";
 import { currencyFormatter } from "../../utils";
+import { useCollection } from "../../hooks/useCollection";
+import useAuthContext from "../../hooks/useAuthContext";
 
 export default function ViewExpensesModal({ show, handleClose, budgetId }) {
-  const { getBudgetExpenses, expenses, deleteBudget, deleteExpense, budgets } =
+
+  const { getBudgetExpenses, deleteBudget, deleteExpense, budgets } =
     useBudgets();
+  const { user } = useAuthContext();
+  const [expenses, expensesError] = useCollection(
+    "expense",
+    ["uid", "==", user.uid],
+    ["createdAt", "desc"]
+  );
 
   let expensesArr = () => {
     if (budgetId !== undefined) {
-      return getBudgetExpenses(budgetId);
+      return expenses.filter((expense) => expense?.budgetId === budgetId);
     }
+    
     return expenses;
   };
-
+console.log("yo", budgetId);
   expensesArr = expensesArr();
+  console.log("expensesArr", expensesArr);
 
   const handleDeleteBudget = () => {
     // match the  BudgetId
@@ -37,16 +48,17 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
   }
 
   return (
-    <div className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${show ? "" : "hidden"}  `}>
-      <div
-        className="bg-white rounded-lg  p-5 w-96"
-      >
+    <div
+      className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${
+        show ? "" : "hidden"
+      }  `}
+    >
+      <div className="bg-white rounded-lg  p-5 w-96">
         <div className="flex justify-between mb-4  ">
           <h3 className="text-xl">{name} Expense</h3>
 
           {budgetId !== UNCATEGORIZED_BUDGET_ID && budgetId !== undefined ? (
             <button
-             
               className="bg-red-400 text-white  text-[10px]  h-4 px-1 rounded"
               onClick={handleDeleteBudget}
             >
@@ -70,7 +82,7 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
         </div>
 
         <div>
-          {expensesArr.map((expense) => (
+          {expensesArr && expensesArr.map((expense) => (
             <div key={expense.id}>
               <div className=" flex justify-between ">
                 <div className="w-75">{expense.description}</div>
