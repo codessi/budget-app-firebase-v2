@@ -6,6 +6,7 @@ import {
 import useFireStore from "../../hooks/useFireStore";
 import useAuthContext from "../../hooks/useAuthContext";
 
+
 export default function AddExpenseModal({
   show,
   handleClose,
@@ -13,7 +14,7 @@ export default function AddExpenseModal({
   budgets
 }) {
   // const { addExpense, budgets } = useBudgets();
-  const { addDocument, response } = useFireStore("expense");
+  const [addExpenseFirestore, ,response ] = useFireStore("expense");
   const { user } = useAuthContext();
 
   const amountRef = useRef();
@@ -22,16 +23,20 @@ export default function AddExpenseModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addDocument({
+    addExpenseFirestore({
       description: descriptionRef.current.value,
       amount: amountRef.current.value,
       budgetId: budgetIdRef.current.value,
       uid: user.uid
     });
+    descriptionRef.current.value = ""
+    amountRef.current.value=""
+
 
     handleClose();
   };
-
+  console.log("form Addex", defaultBudgetId)
+  
 
 
   return (
@@ -92,11 +97,14 @@ export default function AddExpenseModal({
                   className="w-full p-1 outline outline-slate-200 rounded text-slate-400"
                   ref={budgetIdRef}
                   defaultValue={defaultBudgetId}
-                  aria-label="Default blah example"
+                  aria-label=""
                 >
+                  {/* {budget.id == defaultBudgetId && "selected "} */}
                   <option id={UNCATEGORIZED_BUDGET_ID}>uncategorized </option>
                   {budgets && budgets.map((budget) => (
-                    <option key={budget.id} value={budget.id}>
+                    budget.id === defaultBudgetId ? <option key={budget.id} value={budget.id} selected >
+                      {budget.name}
+                    </option> : <option key={budget.id} value={budget.id} >
                       {budget.name}
                     </option>
                   ))}

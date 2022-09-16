@@ -1,18 +1,28 @@
 import React from 'react'
-import { useBudgets } from '../../contexts/BudgetsContext'
+// import { useBudgets } from '../../contexts/BudgetsContext'
 import BudgetCard from './BudgetCard'
+import { useCollection } from '../../hooks/useCollection';
+import useAuthContext from '../../hooks/useAuthContext';
 
-// -- I want total bugetCard to have
-//  -- total of all budget max
-//  -- total of all expense 
-//  -- bar
-//  -- no add or view button  
-export default function TotalBudgetCard({onViewExpensesClick}) {
-  const { budgets, expenses } = useBudgets()
-  const max = budgets.reduce((total, budget) => { return total + parseFloat(budget.max) }, 0) 
+export default function TotalBudgetCard({ onViewExpensesClick }) {
+
+  const { user } = useAuthContext();
+  
+  const [ budgets, budgetError ] = useCollection(
+    "budget",
+    ["uid", "==", user.uid],
+    ["createdAt", "desc"]
+  );
+
+  const [ expenses, expensesError ] = useCollection(
+    "expense",
+    ["uid", "==", user.uid],
+    ["createdAt", "desc"]
+  );
+
+  const max = budgets?.reduce((total, budget) => { return total + parseFloat(budget.max) }, 0) 
  
-
-  const tExpense = expenses.reduce((total, expense) => { return total + parseFloat(expense?.amount) }, 0)
+  const tExpense = expenses?.reduce((total, expense) => { return total + parseFloat(expense?.amount) }, 0)
 
   
   return (

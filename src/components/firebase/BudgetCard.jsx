@@ -20,9 +20,9 @@ export default function BudgetCard({
   // className={classNames.join(" ")}
   return (
     <div className="shadow-sm rounded bg-white my-2 p-3">
-      <div>
+      <div className="space-y-5">
         <div className="flex justify-between ">
-          <div className="me-2">{name} </div>
+          <div className="me-2 capitalize">{name} </div>
           <div className="d-flex align-items-baseline">
             {currencyFormatter.format(amount)}
             {max ? (
@@ -44,7 +44,7 @@ export default function BudgetCard({
  
 
         {max ? (
-         <div className="w-full bg-gray-500 rounded-full h-2.5 my-5 dark:bg-gray-700">
+         <div className="w-full bg-gray-500 rounded-full h-2.5 my-0 dark:bg-gray-700 overflow-hidden">
             <div
               className={`bg-${getProgressBarVarient(amount,max)}-400 h-2.5 rounded-full`}
               style={{ width: `${(amount/max)*100}%` }}
@@ -64,7 +64,7 @@ export default function BudgetCard({
           ) : (
             <>
               <button
-                className = {`outline outline-blue-500 p-1 px-3 rounded `}
+                className = {`bg-slate-500 text-white p-1 px-3 rounded `}
                 onClick={onAddExpenseClick}
               >
                 Add Expense
@@ -73,7 +73,7 @@ export default function BudgetCard({
           )}
           <button
             variant="outline-secondary"
-            className="outline outline-blue-500 p-1 px-3 rounded "
+            className="bg-teal-500 text-white p-1 px-3 rounded "
             onClick={onViewExpensesClick}
           >
             View Expense

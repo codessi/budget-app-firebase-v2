@@ -5,14 +5,24 @@ import {
 import { currencyFormatter } from "../../utils";
 import { useCollection } from "../../hooks/useCollection";
 import useAuthContext from "../../hooks/useAuthContext";
+import useFireStore from '../../hooks/useFireStore'
 
 export default function ViewExpensesModal({ show, handleClose, budgetId }) {
 
-  const { getBudgetExpenses, deleteBudget, deleteExpense, budgets } =
+  const { getBudgetExpenses, deleteBudget, deleteExpense } =
     useBudgets();
   const { user } = useAuthContext();
+  const [, deleteExpenseFirestore, updateExpenseFirestore ] = useFireStore("expense")
+  const [, deleteBudgetFirestore] = useFireStore("budget")
+  
   const [expenses, expensesError] = useCollection(
     "expense",
+    ["uid", "==", user.uid],
+    ["createdAt", "desc"]
+  );
+
+  const [budgets, budgetsError] = useCollection(
+    "budget",
     ["uid", "==", user.uid],
     ["createdAt", "desc"]
   );
@@ -24,16 +34,26 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
     
     return expenses;
   };
-console.log("yo", budgetId);
+
   expensesArr = expensesArr();
   console.log("expensesArr", expensesArr);
 
   const handleDeleteBudget = () => {
-    // match the  BudgetId
-    deleteBudget(budgetId);
+   
+    //list expesne and filter through
+   // that as same buget id - make a array [x]
+    expensesArr.map(expense => {
+      updateExpenseFirestore(expense.id, {budgetId:"uncategorized"})
+    })
+    
+    // map that array and update with uncat
+    deleteBudgetFirestore(budgetId);
+    console.log("handle elete", budgetId)
   };
   const handleDeleteExpense = (expenseId) => {
-    deleteExpense(expenseId);
+    // deleteExpense(expenseId);
+    deleteExpenseFirestore(expenseId)
+  
   };
 
   //
@@ -44,8 +64,14 @@ console.log("yo", budgetId);
   } else if (budgetId == undefined) {
     name = "Total";
   } else if (budgetId) {
-    name = budgets?.find((obj) => obj.budgetId === budgetId)?.name;
+    console.log("yo", budgets)
+    name = budgets?.find((obj) => obj.id === budgetId
+    )?.name
+    console.log(name)
   }
+
+  console.log(expenses)
+  
 
   return (
     <div
@@ -55,7 +81,10 @@ console.log("yo", budgetId);
     >
       <div className="bg-white rounded-lg  p-5 w-96">
         <div className="flex justify-between mb-4  ">
-          <h3 className="text-xl">{name} Expense</h3>
+          <div>
+            <h3 className="text-xl capitalize">{name} Expense</h3>
+            {expensesArr?.length === 0 && <p>No expenses added</p>}
+          </div>
 
           {budgetId !== UNCATEGORIZED_BUDGET_ID && budgetId !== undefined ? (
             <button

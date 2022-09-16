@@ -17,6 +17,13 @@ export default function useFireStore(collection) {
           success: null,
           isPending: true,
         };
+        case "UPDATED_DOCUMENT":
+          return {
+            isPending: false,
+            document: action.payload,
+            error: null,
+            success: true,
+          };
       case "ADDED_DOCUMENT":
         return {
           isPending: false,
@@ -52,6 +59,25 @@ export default function useFireStore(collection) {
       dispatch(action);
     }
   };
+
+  const updateDocument = async (docId, obj) => {
+    dispatch({ type: "IS_PENDING" });
+    try {
+
+      const updatedDocument = await ref.doc(docId).update(obj);
+      dispatcheIfNotCanceled({
+        type: "UPDATED_DOCUMENT",
+        payload: updatedDocument,
+      });
+
+    } catch (error) {
+      dispatcheIfNotCanceled({
+        type: "ERROR",
+        payload: error.message,
+      });
+    }
+  };
+
   const addDocument = async (doc) => {
     dispatch({ type: "IS_PENDING" });
     try {
@@ -68,6 +94,8 @@ export default function useFireStore(collection) {
       });
     }
   };
+
+
 
   const deleteDocument = async (doc) => {
     dispatch({ type: "IS_PENDING" });
@@ -90,5 +118,5 @@ export default function useFireStore(collection) {
     return () => setIsCancelled(true);
   }, []);
 
-  return { addDocument, deleteDocument, response };
+  return [addDocument, deleteDocument, updateDocument,response ];
 }

@@ -32,9 +32,6 @@ function App() {
 
   const { user } = useAuthContext();
 
-  const getBudgets = () => {
-    
-  }
   const [ budgets, budgetError ] = useCollection(
     "budget",
     ["uid", "==", user.uid],
@@ -71,7 +68,7 @@ function App() {
   return (
     <>
       <div className="p-4 md:p-8   min-h-screen bg-slate-300">
-        <div className="border-8 md:border-4 md:pb-6   bg-gray-100 max-w-sm md:max-w-4xl mx-auto min-h-screen md:min-h-[70vh]  rounded-[3.3rem] md:rounded-[2rem]  border-white overflow-hidden">
+        <div className="border-8 md:border-4 md:pb-6 pb-3  bg-gray-100 max-w-sm md:max-w-4xl mx-auto min-h-screen md:min-h-[70vh]  rounded-[3.3rem] md:rounded-[2rem]  border-white overflow-hidden">
           <div
             direction="horizontal"
             className="flex-col  p-5 pt-10 pb-6 justify-between text-white bg-teal-600/90 mb-4"
@@ -114,13 +111,14 @@ function App() {
                 amount={amount(budget.id)}
                 gray={true}
                 max={budget.max}
-                onAddExpenseClick={() => openAddExpenseModal(budget.budgetId)}
+                onAddExpenseClick={() => openAddExpenseModal(budget.id)}
                 onViewExpensesClick={() =>
                   openViewExpensesModal(budget.id)
                 }
               />
             ))}
-            <UncategorizedBudgetCard
+            <UncategorizedBudgetCard 
+             
               onAddExpenseClick={() =>
                 openAddExpenseModal(UNCATEGORIZED_BUDGET_ID)
               }

@@ -8,7 +8,7 @@ export default function AddBudgetModal({ show, handleClose }) {
   const nameRef = useRef();
   const maxRef = useRef();
   // const { addBudget } = useBudgets();
-  const { addDocument, response } = useFireStore('budget')
+  const [ addDocument, , ,response ] = useFireStore('budget')
   const { user } = useAuthContext();
 
   const handleSubmit = (e) => {
@@ -18,6 +18,9 @@ export default function AddBudgetModal({ show, handleClose }) {
       max: parseFloat(maxRef.current.value),
       uid: user.uid
     });
+    nameRef.current.value = ''
+    maxRef.current.value=''
+
     handleClose();
   };
 
