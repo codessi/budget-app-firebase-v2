@@ -45,7 +45,7 @@ export default function BudgetCard({
         {max ? (
          <div className="w-full bg-gray-500 rounded-full h-2.5 my-0 dark:bg-gray-700 overflow-hidden">
             <div
-              className={`bg-${getProgressBarVarient(amount,max)}-400 h-2.5 rounded-full`}
+              className={`${getProgressBarVarient(amount,max)} h-2.5 rounded-full`}
               style={{ width: `${(amount/max)*100}%` }}
             ></div>
           </div>
@@ -89,5 +89,5 @@ const getProgressBarVarient = (amount, max) => {
   
 
 
-  return ratio < 0.5 ? "blue" : ratio < 0.75 ? "yellow" : "red";
+  return ratio < 0.5 ? "bg-blue-400" : ratio < 0.75 ? "bg-yellow-400" : "bg-red-400";
 };
