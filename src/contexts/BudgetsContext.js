@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useLocalStorage } from "./../hooks/useLocalStorge";
 
@@ -16,7 +16,7 @@ export const BudgetsContextProvider = ({ children }) => {
 
   const getUncategorizedExpenses = (budgetId) => {
     if (budgets === [])
-      return expenses.filter((expense) => expense.budgetId == budgetId);
+      return expenses.filter((expense) => expense.budgetId === budgetId);
     return [];
   };
 
@@ -42,7 +42,7 @@ export const BudgetsContextProvider = ({ children }) => {
   const deleteBudget = (budgetId) => {
     setExpenses(
       expenses.map((expense) => {
-        if (expense.budgetId == budgetId) {
+        if (expense.budgetId === budgetId) {
 
           return { ...expense, budgetId: UNCATEGORIZED_BUDGET_ID };
         }

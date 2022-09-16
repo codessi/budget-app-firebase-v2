@@ -1,6 +1,5 @@
 import {
-  UNCATEGORIZED_BUDGET_ID,
-  useBudgets,
+  UNCATEGORIZED_BUDGET_ID
 } from "./../../contexts/BudgetsContext";
 import { currencyFormatter } from "../../utils";
 import { useCollection } from "../../hooks/useCollection";
@@ -8,7 +7,7 @@ import useAuthContext from "../../hooks/useAuthContext";
 import useFireStore from "../../hooks/useFireStore";
 
 export default function ViewExpensesModal({ show, handleClose, budgetId }) {
-  const { getBudgetExpenses, deleteBudget, deleteExpense } = useBudgets();
+
   const { user } = useAuthContext();
   const [, deleteExpenseFirestore, updateExpenseFirestore] =
     useFireStore("expense");
@@ -38,9 +37,9 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
 
 
   const handleDeleteBudget = () => {
-    expensesArr.map((expense) => {
-      updateExpenseFirestore(expense.id, { budgetId: "uncategorized" });
-    });
+    expensesArr.map((expense) => 
+      updateExpenseFirestore(expense.id, { budgetId: "uncategorized" })
+    );
 
     deleteBudgetFirestore(budgetId);
   };
@@ -51,9 +50,9 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
   //
   let name;
 
-  if (budgetId == UNCATEGORIZED_BUDGET_ID) {
+  if (budgetId === UNCATEGORIZED_BUDGET_ID) {
     name = "Uncategorized";
-  } else if (budgetId == undefined) {
+  } else if (budgetId === undefined) {
     name = "Total";
   } else if (budgetId) {
     name = budgets?.find((obj) => obj.id === budgetId)?.name;

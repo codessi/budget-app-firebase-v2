@@ -28,9 +28,9 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
   //
   let name;
 
-  if (budgetId == UNCATEGORIZED_BUDGET_ID) {
+  if (budgetId === UNCATEGORIZED_BUDGET_ID) {
     name = "Uncategorized";
-  } else if (budgetId == undefined) {
+  } else if (budgetId === undefined) {
     name = "Total";
   } else if (budgetId) {
     name = budgets?.find((obj) => obj.budgetId === budgetId)?.name;
@@ -46,7 +46,6 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
 
           {budgetId !== UNCATEGORIZED_BUDGET_ID && budgetId !== undefined ? (
             <button
-             
               className="bg-red-400 text-white  text-[10px]  h-4 px-1 rounded"
               onClick={handleDeleteBudget}
             >

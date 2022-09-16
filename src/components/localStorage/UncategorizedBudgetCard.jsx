@@ -8,7 +8,7 @@ export default function UncategorizedBudgetCard({
   onAddExpenseClick,
   onViewExpensesClick,
 }) {
-  const { getBudgetExpenses, getUncategorizedExpenses,expenses,budgets } = useBudgets();
+  const { getBudgetExpenses } = useBudgets();
 
   const amount= getBudgetExpenses(UNCATEGORIZED_BUDGET_ID).reduce(
     (a, b) => a + parseFloat(b.amount),

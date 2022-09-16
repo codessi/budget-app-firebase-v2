@@ -51,7 +51,7 @@ function App() {
     const result = filteredExpenses.reduce((total, expense) => {
           return total + parseFloat(expense.amount);
     }, 0);
-    console.log("result" , typeof result)
+  
     return result
   }
 

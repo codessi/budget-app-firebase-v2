@@ -1,6 +1,4 @@
 
-import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import React, { useState } from 'react'
 import { useSignup } from './../hooks/useSignup'
 
