@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { useBudgets } from "../../contexts/BudgetsContext";
 import useFireStore from '../../hooks/useFireStore'
 import useAuthContext from "../../hooks/useAuthContext";
 
@@ -7,7 +6,6 @@ export default function AddBudgetModal({ show, handleClose }) {
 
   const nameRef = useRef();
   const maxRef = useRef();
-  // const { addBudget } = useBudgets();
   const [ addDocument, , ,response ] = useFireStore('budget')
   const { user } = useAuthContext();
 

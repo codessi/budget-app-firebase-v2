@@ -9,7 +9,7 @@ export default function UncategorizedBudgetCard({
   onAddExpenseClick,
   onViewExpensesClick,
 }) {
-  // const { getUncategorizedExpenses } = useBudgets();
+
   const { user } = useAuthContext();
 
 
@@ -30,7 +30,7 @@ export default function UncategorizedBudgetCard({
     const result = filteredExpenses?.reduce((total, expense) => {
           return total + parseFloat(expense.amount);
     }, 0);
-    console.log("uncat card", result)
+
     
     return result
 

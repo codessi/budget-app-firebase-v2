@@ -2,8 +2,7 @@ import { useBudgets } from "../../contexts/BudgetsContext";
 import BudgetCard from "./BudgetCard";
 import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
 
-// how does it work
-//
+
 export default function UncategorizedBudgetCard({
 
   onAddExpenseClick,

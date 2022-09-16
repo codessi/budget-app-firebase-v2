@@ -1,5 +1,4 @@
 import React from 'react'
-// import { useBudgets } from '../../contexts/BudgetsContext'
 import BudgetCard from './BudgetCard'
 import { useCollection } from '../../hooks/useCollection';
 import useAuthContext from '../../hooks/useAuthContext';

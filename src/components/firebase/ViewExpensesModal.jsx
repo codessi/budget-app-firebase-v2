@@ -5,16 +5,15 @@ import {
 import { currencyFormatter } from "../../utils";
 import { useCollection } from "../../hooks/useCollection";
 import useAuthContext from "../../hooks/useAuthContext";
-import useFireStore from '../../hooks/useFireStore'
+import useFireStore from "../../hooks/useFireStore";
 
 export default function ViewExpensesModal({ show, handleClose, budgetId }) {
-
-  const { getBudgetExpenses, deleteBudget, deleteExpense } =
-    useBudgets();
+  const { getBudgetExpenses, deleteBudget, deleteExpense } = useBudgets();
   const { user } = useAuthContext();
-  const [, deleteExpenseFirestore, updateExpenseFirestore ] = useFireStore("expense")
-  const [, deleteBudgetFirestore] = useFireStore("budget")
-  
+  const [, deleteExpenseFirestore, updateExpenseFirestore] =
+    useFireStore("expense");
+  const [, deleteBudgetFirestore] = useFireStore("budget");
+
   const [expenses, expensesError] = useCollection(
     "expense",
     ["uid", "==", user.uid],
@@ -31,29 +30,22 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
     if (budgetId !== undefined) {
       return expenses.filter((expense) => expense?.budgetId === budgetId);
     }
-    
+
     return expenses;
   };
 
   expensesArr = expensesArr();
-  console.log("expensesArr", expensesArr);
+
 
   const handleDeleteBudget = () => {
-   
-    //list expesne and filter through
-   // that as same buget id - make a array [x]
-    expensesArr.map(expense => {
-      updateExpenseFirestore(expense.id, {budgetId:"uncategorized"})
-    })
-    
-    // map that array and update with uncat
+    expensesArr.map((expense) => {
+      updateExpenseFirestore(expense.id, { budgetId: "uncategorized" });
+    });
+
     deleteBudgetFirestore(budgetId);
-    console.log("handle elete", budgetId)
   };
   const handleDeleteExpense = (expenseId) => {
-    // deleteExpense(expenseId);
-    deleteExpenseFirestore(expenseId)
-  
+    deleteExpenseFirestore(expenseId);
   };
 
   //
@@ -64,14 +56,8 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
   } else if (budgetId == undefined) {
     name = "Total";
   } else if (budgetId) {
-    console.log("yo", budgets)
-    name = budgets?.find((obj) => obj.id === budgetId
-    )?.name
-    console.log(name)
+    name = budgets?.find((obj) => obj.id === budgetId)?.name;
   }
-
-  console.log(expenses)
-  
 
   return (
     <div
@@ -111,32 +97,33 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
         </div>
 
         <div>
-          {expensesArr && expensesArr.map((expense) => (
-            <div key={expense.id}>
-              <div className=" flex justify-between ">
-                <div className="w-75">{expense.description}</div>
-                <div className="flex items-center gap-5">
-                  <div className="me-4 w-25" style={{ textAlign: "right" }}>
-                    {currencyFormatter.format(expense.amount)}
-                  </div>
-                  <button
-                    className="outline rounded-sm outline-blue-300 h-5"
-                    onClick={() => handleDeleteExpense(expense.id)}
-                  >
-                    <svg
-                      fill="#000000"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 50 50"
-                      width="17px"
-                      height="17px"
+          {expensesArr &&
+            expensesArr.map((expense) => (
+              <div key={expense.id}>
+                <div className=" flex justify-between ">
+                  <div className="w-75">{expense.description}</div>
+                  <div className="flex items-center gap-5">
+                    <div className="me-4 w-25" style={{ textAlign: "right" }}>
+                      {currencyFormatter.format(expense.amount)}
+                    </div>
+                    <button
+                      className="outline rounded-sm outline-blue-300 h-5"
+                      onClick={() => handleDeleteExpense(expense.id)}
                     >
-                      <path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z" />
-                    </svg>
-                  </button>
+                      <svg
+                        fill="#000000"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 50 50"
+                        width="17px"
+                        height="17px"
+                      >
+                        <path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>

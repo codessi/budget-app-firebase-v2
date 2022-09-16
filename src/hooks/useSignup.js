@@ -7,7 +7,7 @@ export function useSignup() {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  // error, isPending, signup??
+
   const signup = async (email, password, displayName) => {
     setError(null);
     setIsPending(true);
@@ -21,8 +21,6 @@ export function useSignup() {
       }
 
       await res.user?.updateProfile({ displayName });
-
-      // dispatch and update the state
       dispatch({ type: "LOGIN", payload: res.user });
 
       if (!isCanceled) {
@@ -31,7 +29,6 @@ export function useSignup() {
       }
     } catch (err) {
       if (!isCanceled) {
-        console.log(err.message);
         setError(err.message);
         setIsPending(false);
       }

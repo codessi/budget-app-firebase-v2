@@ -18,7 +18,7 @@ export default function ViewExpensesModal({ show, handleClose, budgetId }) {
   expensesArr = expensesArr();
 
   const handleDeleteBudget = () => {
-    // match the  BudgetId
+
     deleteBudget(budgetId);
   };
   const handleDeleteExpense = (expenseId) => {

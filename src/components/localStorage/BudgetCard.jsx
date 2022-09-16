@@ -17,7 +17,7 @@ export default function BudgetCard({
   } else if (gray) {
     classNames.push("bg-light");
   }
-  // className={classNames.join(" ")}
+
   return (
     <div className="shadow-sm rounded bg-white my-2 p-3">
       <div>
@@ -39,15 +39,14 @@ export default function BudgetCard({
           </div>
         </div>
 
-        {/* progress bar */}
-
- 
-
         {max ? (
-         <div className="w-full bg-gray-500 rounded-full h-2.5 my-5 dark:bg-gray-700">
+          <div className="w-full bg-gray-500 rounded-full h-2.5 my-5 dark:bg-gray-700">
             <div
-              className={`bg-${getProgressBarVarient(amount,max)}-400 h-2.5 rounded-full`}
-              style={{ width: `${(amount/max)*100}%` }}
+              className={`bg-${getProgressBarVarient(
+                amount,
+                max
+              )}-400 h-2.5 rounded-full`}
+              style={{ width: `${(amount / max) * 100}%` }}
             ></div>
           </div>
         ) : (
@@ -64,7 +63,7 @@ export default function BudgetCard({
           ) : (
             <>
               <button
-                className = {`outline outline-blue-500 p-1 px-3 rounded `}
+                className={`outline outline-blue-500 p-1 px-3 rounded `}
                 onClick={onAddExpenseClick}
               >
                 Add Expense
@@ -85,10 +84,7 @@ export default function BudgetCard({
 }
 
 const getProgressBarVarient = (amount, max) => {
-
-  const ratio = amount / max
-  
-
+  const ratio = amount / max;
 
   return ratio < 0.5 ? "blue" : ratio < 0.75 ? "yellow" : "red";
 };

@@ -17,7 +17,6 @@ export default function BudgetCard({
   } else if (gray) {
     classNames.push("bg-light");
   }
-  // className={classNames.join(" ")}
   return (
     <div className="shadow-sm rounded bg-white my-2 p-3">
       <div className="space-y-5">

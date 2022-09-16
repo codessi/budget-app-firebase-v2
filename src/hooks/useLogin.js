@@ -7,7 +7,7 @@ export function useLogin() {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  // error, isPending, login??
+
   const login = async (email, password) => {
     setError(null);
     setIsPending(true);
@@ -19,7 +19,6 @@ export function useLogin() {
         throw new Error("Could not complete login");
       }
 
-      // dispatch and update the state
       dispatch({ type: "LOGIN", payload: res.user });
 
       if (!isCanceled) {

@@ -13,7 +13,7 @@ export default function AddExpenseModal({
   defaultBudgetId,
   budgets
 }) {
-  // const { addExpense, budgets } = useBudgets();
+
   const [addExpenseFirestore, ,response ] = useFireStore("expense");
   const { user } = useAuthContext();
 
@@ -23,22 +23,19 @@ export default function AddExpenseModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     addExpenseFirestore({
       description: descriptionRef.current.value,
       amount: amountRef.current.value,
       budgetId: budgetIdRef.current.value,
       uid: user.uid
     });
+
     descriptionRef.current.value = ""
     amountRef.current.value=""
-
-
     handleClose();
   };
-  console.log("form Addex", defaultBudgetId)
-  
-
-
+ 
   return (
     <div
       className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${

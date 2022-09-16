@@ -3,8 +3,7 @@ import AddBudgetModal from "../components/firebase/AddBudgetModal";
 import AddExpenseModal from "../components/firebase/AddExpenseModal";
 import BudgetCard from "../components/firebase/BudgetCard";
 import {
-  UNCATEGORIZED_BUDGET_ID,
-  useBudgets,
+  UNCATEGORIZED_BUDGET_ID
 } from "../contexts/BudgetsContext";
 import UncategorizedBudgetCard from "../components/firebase/UncategorizedBudgetCard";
 import TotalBudgetCard from "../components/firebase/TotalBudgetCard";
@@ -25,7 +24,6 @@ function App() {
     setAddExpenseModalBudgetId(budgetId);
   };
   const openViewExpensesModal = (budgetId) => {
-    console.log("openViewExpensesModal budgetId", budgetId)
     setShowViewExpensesModal(true);
     setViewExpensesModalBudgetId(budgetId);
   };
@@ -56,14 +54,7 @@ function App() {
     
     return result
   }
-  // const amount = (budgetId) => {
-  //   const expenseObjArr = getBudgetExpenses(budgetId);
-  //   const result = expenseObjArr.reduce((total, expense) => {
-  //     return total + parseFloat(expense.amount);
-  //   }, 0);
 
-  //   return result;
-  // };
 
   return (
     <>
@@ -75,9 +66,13 @@ function App() {
           >
             <div className="flex justify-between items-center">
               <h1 className="text-3xl mb-3  font-semibold">Budget App</h1>
-              <p className="mr-7 bg-teal-500 px-4 rounded">
-                {user.displayName}'s Budget
-              </p>
+              <div>
+                <p className="mr-7 bg-teal-500 px-4 rounded">
+                  {user.displayName}'s Budget
+                </p>
+                {budgetError && <p>{budgetError}</p>}
+                {expensesError && <p>{expensesError}</p>}
+              </div>
             </div>
             <div className="flex gap-2">
               <button
