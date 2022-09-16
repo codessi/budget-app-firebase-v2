@@ -43,7 +43,7 @@ function App() {
           <div direction="horizontal" className="flex-col  p-5 pt-10 pb-6 justify-between text-white bg-teal-600/90 mb-4">
             <div className="flex justify-between">
               <h1 className="text-3xl mb-3  font-semibold">Budget App</h1>
-              <p className="mr-7 bg-teal-500 p-2 rounded">This is a demo. <br/> Login to see your budget. : )</p>
+              <p className="mr-7 bg-teal-500 p-2 rounded">This is a demo. <br/> Login to see your budget. </p>
             </div>
             <div className="flex gap-2">
               <button className="outline outline-teal-300/90 text-white p-1 px-3 rounded-lg hover:outline-white transtion duration-200" onClick={() => setShowAddBudgetModal(true)}>
