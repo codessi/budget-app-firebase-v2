@@ -96,11 +96,10 @@ let { user } = useAuthContext();
             </div>
           </div>
           <div
-            className="m-2"
+            className="m-2 gap-5 "
             style={{
               display: "grid",
               gridTemplateColumns: "Repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1rem",
               alignItems: "start",
             }}
           >
