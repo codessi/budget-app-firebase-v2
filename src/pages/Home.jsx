@@ -32,13 +32,13 @@ function App() {
 
   const [ budgets, budgetError ] = useCollection(
     "budget",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
 
   const [ expenses, expensesError ] = useCollection(
     "expense",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
 
@@ -68,7 +68,7 @@ function App() {
               <h1 className="text-3xl mb-3  font-semibold">Budget App</h1>
               <div>
                 <p className="mr-7 bg-teal-500 px-4 rounded">
-                  {user.displayName}'s Budget
+                  {user?.displayName}'s Budget
                 </p>
                 {budgetError && <p>{budgetError}</p>}
                 {expensesError && <p>{expensesError}</p>}

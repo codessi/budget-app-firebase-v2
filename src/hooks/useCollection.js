@@ -10,10 +10,11 @@ export function useCollection(collection, _query, _orderBy) {
   useEffect(() => {
     let ref = firestore.collection(collection);
 
+
     if (query) {
       ref = ref.where(...query);
     }
-    if (orderBy) {
+    if (query) {
       ref = ref.orderBy(...orderBy);
     }
 

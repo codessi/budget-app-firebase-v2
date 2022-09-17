@@ -3,21 +3,23 @@ import BudgetCard from './BudgetCard'
 import { useCollection } from '../../hooks/useCollection';
 import useAuthContext from '../../hooks/useAuthContext';
 
-export default function TotalBudgetCard({ onViewExpensesClick }) {
+export default function TotalBudgetCard({ onViewExpensesClick, user }) {
 
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
   
   const [ budgets, budgetError ] = useCollection(
     "budget",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
 
   const [ expenses, expensesError ] = useCollection(
     "expense",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
+
+  console.log(expenses)
 
   const max = budgets?.reduce((total, budget) => { return total + parseFloat(budget.max) }, 0) 
  

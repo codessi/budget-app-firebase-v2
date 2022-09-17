@@ -2,12 +2,12 @@ import { useRef } from "react";
 import useFireStore from '../../hooks/useFireStore'
 import useAuthContext from "../../hooks/useAuthContext";
 
-export default function AddBudgetModal({ show, handleClose }) {
+export default function AddBudgetModal({ show, handleClose, user }) {
 
   const nameRef = useRef();
   const maxRef = useRef();
   const [ addDocument, , ,response ] = useFireStore('budget')
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +21,7 @@ export default function AddBudgetModal({ show, handleClose }) {
 
     handleClose();
   };
+
 
   return (
     <div className={`fixed  flex justify-center items-center inset-0 bg-gray-900/80 ${show ? "" : "hidden"}  `}>

@@ -6,22 +6,22 @@ import { useCollection } from "../../hooks/useCollection";
 import useAuthContext from "../../hooks/useAuthContext";
 import useFireStore from "../../hooks/useFireStore";
 
-export default function ViewExpensesModal({ show, handleClose, budgetId }) {
+export default function ViewExpensesModal({ show, handleClose, budgetId, user }) {
 
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
   const [, deleteExpenseFirestore, updateExpenseFirestore] =
     useFireStore("expense");
   const [, deleteBudgetFirestore] = useFireStore("budget");
 
   const [expenses, expensesError] = useCollection(
     "expense",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
 
   const [budgets, budgetsError] = useCollection(
     "budget",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
 

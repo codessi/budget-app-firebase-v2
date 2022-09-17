@@ -7,21 +7,21 @@ import { useCollection } from "../../hooks/useCollection";
 
 export default function UncategorizedBudgetCard({
   onAddExpenseClick,
-  onViewExpensesClick,
+  onViewExpensesClick, user
 }) {
 
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
 
 
   const [ budgets, budgetError ] = useCollection(
     "budget",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
 
   const [ expenses, expensesError ] = useCollection(
     "expense",
-    ["uid", "==", user.uid],
+    ["uid", "==", user?.uid],
     ["createdAt", "desc"]
   );
 

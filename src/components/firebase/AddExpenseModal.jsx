@@ -11,11 +11,12 @@ export default function AddExpenseModal({
   show,
   handleClose,
   defaultBudgetId,
-  budgets
+  budgets,
+  user
 }) {
 
   const [addExpenseFirestore, ,response ] = useFireStore("expense");
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
 
   const amountRef = useRef();
   const descriptionRef = useRef();
