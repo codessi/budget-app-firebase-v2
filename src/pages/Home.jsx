@@ -10,6 +10,7 @@ import TotalBudgetCard from "../components/firebase/TotalBudgetCard";
 import ViewExpensesModal from "../components/firebase/ViewExpensesModal";
 import useAuthContext from "../hooks/useAuthContext";
 import { useCollection } from "../hooks/useCollection";
+import userEvent from "@testing-library/user-event";
 
 function App() {
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
@@ -28,7 +29,12 @@ function App() {
     setViewExpensesModalBudgetId(budgetId);
   };
 
-  const { user } = useAuthContext();
+let { user } = useAuthContext();
+  if (!user) {
+    user = {
+    uid: "demo"
+  }}
+
 
   const [ budgets, budgetError ] = useCollection(
     "budget",
@@ -68,7 +74,7 @@ function App() {
               <h1 className="text-3xl mb-3  font-semibold">Budget App</h1>
               <div>
                 <p className="mr-7 bg-teal-500 px-4 rounded">
-                  {user?.displayName}'s Budget
+                  {user.uid==="demo"? "Demo" : user?.displayName}'s Budget
                 </p>
                 {budgetError && <p>{budgetError}</p>}
                 {expensesError && <p>{expensesError}</p>}
@@ -113,7 +119,7 @@ function App() {
               />
             ))}
             <UncategorizedBudgetCard 
-             
+             user={user}
               onAddExpenseClick={() =>
                 openAddExpenseModal(UNCATEGORIZED_BUDGET_ID)
               }
@@ -122,16 +128,19 @@ function App() {
               }
             />
             <TotalBudgetCard
+              user={user}
               onViewExpensesClick={() => openViewExpensesModal()}
             />
           </div>
         </div>
       </div>
       <AddBudgetModal
+        user ={user}
         show={showAddBudgetModal}
         handleClose={() => setShowAddBudgetModal(false)}
       />
       <AddExpenseModal
+        user ={user}
         show={showAddExpenseModal}
         budgets={budgets}
         handleClose={() => setShowAddExpenseModal(false)}
@@ -139,6 +148,7 @@ function App() {
       />
 
       <ViewExpensesModal
+        user={user}
         show={showViewExpensesModal}
         handleClose={() => setShowViewExpensesModal(false)}
         budgetId={viewExpensesModalBudgetId}

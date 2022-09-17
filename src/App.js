@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import React from "react";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
-import HomeDemo from "./pages/HomeDemo"
+import Home from "./pages/Home"
 import Nav from "./components/Nav";
 import useAuthContext from "./hooks/useAuthContext";
 
@@ -20,8 +19,8 @@ function App() {
           <Nav />
           <Switch>
             <Route exact path="/">
-            {!user && <HomeDemo />}
-              {user && <HomeDemo />}
+            {!user && <Home />}
+              {user && <Home />}
             </Route>
             <Route path="/login">
               {user && <Redirect to='/'/>}
