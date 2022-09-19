@@ -1,6 +1,6 @@
 import { useLogout } from "../hooks/useLogout";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 import tree from "./../assets/tree-svgrepo-com.png";
 
@@ -20,11 +20,11 @@ const Nav = () => {
         <div className="flex gap-5 text-gray-800">
           {!user && (
             <>
-              <li className="outline outline-teal-700 rounded-lg p-px px-3 hover:outline-yellow-500">
-                <Link to="/login">Login</Link>
+              <li >
+                <NavLink className="hover:outline hover:outline-teal-700 rounded-lg p-px px-3" activeClassName=" outline outline-teal-700 rounded-lg p-px px-3" to="/login">Login</NavLink>
               </li>
-              <li className=" bg-pink-200 focus:outline-yellow-500 outline-1">
-                <Link to="/signup">Signup</Link>
+              <li >
+                <NavLink activeClassName="outline outline-yellow-500" className={"outline-blue-500"} to="/signup">Signup</NavLink>
               </li>
             </>
           )}
