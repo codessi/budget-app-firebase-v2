@@ -27,6 +27,8 @@ export default function TotalBudgetCard({ onViewExpensesClick, user }) {
 
   
   return (
-    <BudgetCard name = "Total Budget" max={max} amount={tExpense} noButton onViewExpensesClick={onViewExpensesClick}/>
+    <div className="outline rounded-md outline-gray-400">
+      <BudgetCard name = "Total Budget" max={max} amount={tExpense} noButton onViewExpensesClick={onViewExpensesClick}/>
+    </div>
   )
 }

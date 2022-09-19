@@ -16,7 +16,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="flex bg-gradient-to-r from-teal-500 to-cyan-500 min-h-screen justify-center items-start  ">>
+    <div className="flex bg-gradient-to-r from-teal-500 to-cyan-500 min-h-screen justify-center items-start  ">
       <form action="" className= "bg-white mt-20 flex flex-col w-96 p-5 rounded-xl space-y-5"  onSubmit= {onSubmit}>
         <h2>Sign Up</h2>
         <label htmlFor="">
@@ -36,8 +36,8 @@ const Signup = () => {
           <h3>Password:</h3>
           <input type="password" className="w-full bg-slate-200"  value={password} id="password" onChange={e => setPassword(e.target.value)} />
         </label>
-        {!isPending && <button className='outline outline-green-300 ' type='submit'>Signup</button>}
-        {isPending && <button className='outline outline-green-300 '  disabled type='submit'>Loading</button>}
+        {!isPending && <button   className="rounded-sm outline outline-teal-600" type='submit'>Signup</button>}
+        {isPending && <button className="rounded-sm outline outline-teal-600"  disabled type='submit'>Loading</button>}
         {error && <p>{error}</p>}
         
          </form>
