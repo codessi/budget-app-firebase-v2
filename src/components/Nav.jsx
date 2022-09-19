@@ -11,18 +11,19 @@ const Nav = () => {
   return (
     <nav>
       <ul className="bg-white flex justify-between p-3 px-16">
-        <div className="flex gap-2">
-          <img className="h-6" src={tree} alt="" />
-          <li className="text-xl font-semibold text-gray-600">Budget</li>
-        </div>
+    
+          <Link className="flex gap-2" to="/">
+            <img className="h-6" src={tree} alt="" />
+            <li className="text-xl font-semibold text-gray-600">Budget</li>
+          </Link>
 
         <div className="flex gap-5 text-gray-800">
           {!user && (
             <>
-              <li className="outline outline-teal-700 rounded-lg p-px px-3">
+              <li className="outline outline-teal-700 rounded-lg p-px px-3 hover:outline-yellow-500">
                 <Link to="/login">Login</Link>
               </li>
-              <li >
+              <li className=" bg-pink-200 focus:outline-yellow-500 outline-1">
                 <Link to="/signup">Signup</Link>
               </li>
             </>

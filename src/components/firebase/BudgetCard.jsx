@@ -22,7 +22,7 @@ export default function BudgetCard({
     <div className="text-sm shadow-sm rounded bg-white  p-1.5">
       <div className="space-y-2">
         <div className="flex justify-between ">
-          <div className="me-2 capitalize">{name} </div>
+          <div className=" capitalize">{name} </div>
           <div className="d-flex align-items-baseline">
             {currencyFormatter.format(amount)}
             {max ? (
@@ -89,8 +89,8 @@ const getProgressBarVarient = (amount, max) => {
   const ratio = amount / max;
 
   return ratio < 0.5
-    ? "bg-blue-400"
+    ? "bg-blue-500"
     : ratio < 0.75
-    ? "bg-yellow-400"
-    : "bg-red-400";
+    ? "bg-yellow-300"
+    : "bg-red-600";
 };
